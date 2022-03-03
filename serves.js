@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
@@ -73,36 +74,31 @@ udpPort.open();
  * REST handlers *
  ****************/
 
-app.get('/api', (req, res) => {
+app.post('/api/mood', (req, res) => {
+
+  const moodValue = req.body.mood
+
+  console.log("RECEIVED: "+moodValue)
 
   const msg = {
     address: "/hello/from/oscjs",
     args: [
         {
-            type: "s",
-            value: "TEST hello"
+            type: "i",
+            value: moodValue
         },
         {
             type: "f",
             value: Math.random()
         }
     ]
-};
-console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
-udpPort.send(msg).then()
+  };
 
-return res.json(0);
-  /* userDAO.getDJ().then(
-      (dj) => {
-          res.json(dj);
-      }
-  ).catch(
-      (err) => {
-          res.status(500).json({
-              errors: [{ 'message': err }],
-          });
-      }
-  ) */
+  console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
+  udpPort.send(msg)
+
+  return res.json(req.body.mood);
+
 });
 
 app.listen(PORT, ()=>console.log(`Server running on http://localhost:${PORT}/`));
