@@ -1,0 +1,19 @@
+{
+  "name": "sloserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serves.js",
+  "dependencies": {
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "osc": "^2.4.2",
+    "osc-js": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
