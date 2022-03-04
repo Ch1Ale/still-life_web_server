@@ -74,11 +74,12 @@ udpPort.open();
  * REST handlers *
  ****************/
 
+
 app.post('/api/mood', (req, res) => {
 
   const moodValue = req.body.mood
 
-  console.log("RECEIVED: "+moodValue)
+  // console.log("RECEIVED: "+moodValue)
 
   const msg = {
     address: "/hello/from/oscjs",
@@ -98,7 +99,33 @@ app.post('/api/mood', (req, res) => {
   udpPort.send(msg)
 
   return res.json(req.body.mood);
-
 });
+
+
+app.post('/api/season', (req, res) => {
+
+  const seasonValue = req.body.season
+
+  // console.log("RECEIVED: "+seasonValue)
+
+  const msg = {
+    address: "/hello/from/oscjs",
+    args: [
+        {
+            type: "i",
+            value: seasonValue
+        },
+        {
+            type: "f",
+            value: Math.random()
+        }
+    ]
+  };
+  console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
+  udpPort.send(msg)
+
+  return res.json(req.body.mood);
+});
+
 
 app.listen(PORT, ()=>console.log(`Server running on http://localhost:${PORT}/`));
