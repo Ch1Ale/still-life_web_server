@@ -112,7 +112,7 @@ app.post('/api/season', (req, res) => {
     address: "/hello/from/oscjs",
     args: [
         {
-            type: "i",
+            type: "f",
             value: seasonValue
         },
         {
